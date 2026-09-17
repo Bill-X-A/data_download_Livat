@@ -9,9 +9,8 @@ from datetime import datetime, timezone, timedelta
 
 APP_ID = st.secrets["FEISHU_APP_ID"]
 APP_SECRET = st.secrets["FEISHU_APP_SECRET"]
-APP_TOKEN = "AO2NbKrqNaWFZ9suHKJcjGYLn4b"
-TABLE_ID = "tbl1W59w24xZBvNc"
-
+APP_TOKEN = "Lg6vbkcIGavxuvs80zMcA3b16Og"
+TABLE_ID = "tblqtY9EQWcCfaCj"
 def get_from_feishu():
     client = lark.Client.builder() \
         .app_id(APP_ID) \
@@ -48,7 +47,7 @@ def export_with_images(month_str):
     
     wb = Workbook()
     ws = wb.active
-    ws.append(["销售员", "手机号", "商品名称", "SN码", "订单金额", "购买品类", "购买用途", "会员等级", "时间", "三码合一照片"])
+    ws.append(["销售员", "手机号", "商品名称", "SN码", "订单金额", "购买品类", "购买用途", "会员等级", "时间", "订单时间", "三码合一照片"])
     
     row = 2
     for fields in records:
@@ -61,6 +60,7 @@ def export_with_images(month_str):
         ws.cell(row=row, column=7, value=str(fields.get("购买用途", "")))
         ws.cell(row=row, column=8, value=str(fields.get("会员等级", "")))
         ws.cell(row=row, column=9, value=str(fields.get("时间", "")))
+        ws.cell(row=row, column=10, value=str(fields.get("订单时间", "")))
         
         photo = fields.get("三码合一照片")
         if photo and isinstance(photo, list):
